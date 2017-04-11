@@ -15,6 +15,8 @@ function shuffle(a) {
     }
 }
 
+shuffle(SMARTBOARD_URLS);
+
 for (var i in SMARTBOARD_URLS) {
 	ping(SMARTBOARD_URLS[i]).then(function(data) {
 		window.location.replace(data.url);
