@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Smartboard</title>
+</head>
+<body>
+	<div id="result"></div>
+	<script>
+		(function(c,b){"function"===typeof define&&define.amd?define([],b):"object"===typeof module&&module.exports?module.exports=b():c.ping=b()})(this,function(){function c(b){return new Promise(function(c,d){var a=new Image;a.onload=function(){c(a)};a.onerror=function(){d(b)};a.src=b+"?random-no-cache="+Math.floor(65536*(1+Math.random())).toString(16)})}return function(b,f){return new Promise(function(d,a){var g=(new Date).getTime(),e=function(){var a=(new Date).getTime()-g,a=a*(f||1);d({url:b,milliseconds:a})};
+c(b).then(e)["catch"](e);setTimeout(function(){a(Error("Timeout"))},5E3)})}});
+	</script>
+	<script>
+		var SMARTBOARD_URLS = [
+			'https://banggia-hn.vndirect.com.vn',
+			'https://banggia-hcm.vndirect.com.vn',
+			'https://banggia-na.vndirect.com.vn',
+			'https://banggia-eu.vndirect.com.vn',
+			'https://banggia-as.vndirect.com.vn'
+		];
+
+		function shuffle(a) {
+		    for (var i = a.length; i; i--) {
+		        var j = Math.floor(Math.random() * i);
+		        var tmp = a[i - 1];
+		        a[i - 1] = a[j];
+		        a[j] = tmp;
+		    }
+		}
+
+		shuffle(SMARTBOARD_URLS);
+
+		for (var i in SMARTBOARD_URLS) {
+			ping(SMARTBOARD_URLS[i]).then(function(data) {
+				var p = document.createElement("p");
+				var text = data.url + ': ' + data.milliseconds + ' ms';
+				var textNode = document.createTextNode(text);
+				p.appendChild(textNode);
+				document.getElementById("result").appendChild(p);
+
+			});
+		}
+		
+	</script>
+</body>
+</html>
