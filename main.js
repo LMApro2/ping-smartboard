@@ -48,7 +48,7 @@ function checkNearestAndRedirect(domains) {
 	shuffle(domains);
 	for (var i in domains) {
 		ping(domains[i]).then(function(data) {
-			window.location.assign(data.url);
+			window.location.replace(data.url);
 		});	
 	}
 }
