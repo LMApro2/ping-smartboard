@@ -3,14 +3,17 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Smartboard</title>
+
 </head>
 <body>
+	<p style="text-align: center;">
+		Đang xác định máy chủ gần nhất, vui lòng chờ trong giây lát ...
+	</p>
+	
 	<script>
 		(function(c,b){"function"===typeof define&&define.amd?define([],b):"object"===typeof module&&module.exports?module.exports=b():c.ping=b()})(this,function(){function c(b){return new Promise(function(c,d){var a=new Image;a.onload=function(){c(a)};a.onerror=function(){d(b)};a.src=b+"?random-no-cache="+Math.floor(65536*(1+Math.random())).toString(16)})}return function(b,f){return new Promise(function(d,a){var g=(new Date).getTime(),e=function(){var a=(new Date).getTime()-g,a=a*(f||1);d({url:b,milliseconds:a})};
 c(b).then(e)["catch"](e);setTimeout(function(){a(Error("Timeout"))},5E3)})}});
 	</script>
-	<script>
-		var SMARTBOARD_URLS=["https://banggia-hn.vndirect.com.vn","https://banggia-hcm.vndirect.com.vn","https://banggia-na.vndirect.com.vn","https://banggia-eu.vndirect.com.vn","https://banggia-as.vndirect.com.vn"];function shuffle(a){for(var b=a.length;b;b--){var c=Math.floor(Math.random()*b),d=a[b-1];a[b-1]=a[c];a[c]=d}}for(var i in SMARTBOARD_URLS)ping(SMARTBOARD_URLS[i]).then(function(a){window.location.replace(a.url)});
-	</script>
+	<script src="main.js"></script>
 </body>
 </html>

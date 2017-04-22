@@ -15,12 +15,48 @@ function shuffle(a) {
     }
 }
 
-shuffle(SMARTBOARD_URLS);
+var validDomains = [];
 
-
-for (var i in SMARTBOARD_URLS) {
-	ping(SMARTBOARD_URLS[i]).then(function(data) {
-		window.location.replace(data.url);
-	});	
+function makeRequest(url, cb) {
+	var request = new XMLHttpRequest();
+	request.addEventListener("load", function() {
+		validDomains.push(url);
+		cb();
+	});
+	request.addEventListener("error", function() {
+		cb();
+	});
+	request.open("GET", url);
+	request.send();
 }
+
+function checkValidDomains(cb) {
+	makeRequest(SMARTBOARD_URLS[0], function() {
+		makeRequest(SMARTBOARD_URLS[1], function() {
+			makeRequest(SMARTBOARD_URLS[2], function() {
+				makeRequest(SMARTBOARD_URLS[3], function() {
+					makeRequest(SMARTBOARD_URLS[4], function() {
+						cb(validDomains);
+					});
+				});
+			});
+		});
+	});
+}
+
+function checkNearestAndRedirect(domains) {
+	shuffle(domains);
+	for (var i in domains) {
+		ping(domains[i]).then(function(data) {
+			window.location.assign(data.url);
+		});	
+	}
+}
+
+checkValidDomains(function(validDomains) {
+	checkNearestAndRedirect(validDomains);
+});
+
+
+
 
